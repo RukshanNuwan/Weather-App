@@ -38,14 +38,14 @@ export default function App() {
                 setErrMsg(result.message);
             }
         } catch (err) {
+            setErrMsg(err.message);
         }
     }
 
     // Check the current weather is true. If current weather is true then return the View
+    console.log(currentWeather);
     if (currentWeather) {
-        const {
-            main: {temp}
-        } = currentWeather
+        const {main: {temp}} = currentWeather;
 
         return (
             <View style={styles.container}>

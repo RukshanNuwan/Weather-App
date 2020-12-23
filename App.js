@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
 import * as Location from 'expo-location';
+import WeatherInfo from "./components/weatherInfo";
 
 const WEATHER_API_KEY = 'cd914f43b33183306bca45809ad5439f';
 const BASE_WEATHER_URL = 'https://api.openweathermap.org/data/2.5/weather?';
@@ -11,6 +12,7 @@ export default function App() {
     //Error Messsage
     const [errMsg, setErrMsg] = useState(null);
     const [currentWeather, setCurrentWeather] = useState(null);
+    const [unitSystem, setUnitSystem] = useState('metric');
 
     useEffect(() => {
         load();
@@ -22,7 +24,7 @@ export default function App() {
             let {status} = await Location.requestPermissionsAsync();
 
             if (status !== 'granted') {
-                setErrMsg('Need Locations Permissions')
+                setErrMsg('Need Location Permissions')
                 return;
             }
 
@@ -30,7 +32,7 @@ export default function App() {
             const {latitude, longitude} = location.coords;
             const weatherUrl = `${BASE_WEATHER_URL}lat=${latitude}&lon=${longitude}&appid=${WEATHER_API_KEY}`;
             const response = await fetch(weatherUrl);
-            const result = response.json();
+            const result = await response.json();
 
             if (response.ok) {
                 setCurrentWeather(result);
@@ -43,14 +45,11 @@ export default function App() {
     }
 
     // Check the current weather is true. If current weather is true then return the View
-    console.log(currentWeather);
     if (currentWeather) {
-        const {main: {temp}} = currentWeather;
-
         return (
             <View style={styles.container}>
-                <Text>"{temp}"</Text>
                 <StatusBar style="auto"/>
+                <WeatherInfo currntWeather={currentWeather}/>
             </View>
         );
     } else {

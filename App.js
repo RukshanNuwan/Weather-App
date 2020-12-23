@@ -49,7 +49,7 @@ export default function App() {
 
         return (
             <View style={styles.container}>
-                <Text>{temp}</Text>
+                <Text>"{temp}"</Text>
                 <StatusBar style="auto"/>
             </View>
         );

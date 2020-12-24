@@ -4,6 +4,7 @@ import {StyleSheet, Text, View, ImageBackground} from 'react-native';
 import * as Location from 'expo-location';
 
 import WeatherInfo from "./components/weatherInfo";
+import UnitsPicker from "./components/unitsPicker";
 
 const WEATHER_API_KEY = 'cd914f43b33183306bca45809ad5439f';
 const BASE_WEATHER_URL = 'https://api.openweathermap.org/data/2.5/weather?';
@@ -17,7 +18,7 @@ export default function App() {
 
     useEffect(() => {
         load();
-    }, []);
+    }, [unitSystem]);
 
     async function load() {
         try {
@@ -50,8 +51,9 @@ export default function App() {
         return (
             <View style={styles.container}>
                 <ImageBackground source={bgImage} style={styles.bgImage}>
+                    <StatusBar style="auto"/>
                     <View style={styles.main}>
-                        <StatusBar style="auto"/>
+                        <UnitsPicker unitSystem={unitSystem} setUnitSystem={setUnitSystem}/>
                         <WeatherInfo currentWeather={currentWeather}/>
                     </View>
                 </ImageBackground>

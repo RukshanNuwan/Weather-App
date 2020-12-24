@@ -1,12 +1,13 @@
 import {StatusBar} from 'expo-status-bar';
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, ImageBackground} from 'react-native';
 import * as Location from 'expo-location';
 
 import WeatherInfo from "./components/weatherInfo";
 
 const WEATHER_API_KEY = 'cd914f43b33183306bca45809ad5439f';
 const BASE_WEATHER_URL = 'https://api.openweathermap.org/data/2.5/weather?';
+const bgImage = require('./assets/background.jpg');
 
 export default function App() {
     //Error Messsage
@@ -48,10 +49,12 @@ export default function App() {
     if (currentWeather) {
         return (
             <View style={styles.container}>
-                <View style={styles.main}>
-                    <StatusBar style="auto"/>
-                    <WeatherInfo currentWeather={currentWeather}/>
-                </View>
+                <ImageBackground source={bgImage} style={styles.bgImage}>
+                    <View style={styles.main}>
+                        <StatusBar style="auto"/>
+                        <WeatherInfo currentWeather={currentWeather}/>
+                    </View>
+                </ImageBackground>
             </View>
         );
     } else {
@@ -73,5 +76,11 @@ const styles = StyleSheet.create({
     main: {
         flex: 1,
         justifyContent: 'center'
+    },
+
+    bgImage: {
+        flex: 1,
+        justifyContent: 'center',
+        resizeMode: 'cover'
     }
 });

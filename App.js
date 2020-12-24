@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 
+    // ©Phoenix|2020
     main: {
         flex: 1,
         justifyContent: 'center'

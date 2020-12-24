@@ -1,10 +1,12 @@
 import {StatusBar} from 'expo-status-bar';
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View, ImageBackground} from 'react-native';
+import {StyleSheet, Text, View, ImageBackground, ActivityIndicator} from 'react-native';
 import * as Location from 'expo-location';
 
 import WeatherInfo from "./components/weatherInfo";
 import UnitsPicker from "./components/unitsPicker";
+import{colors} from "./utils/inedx";
+import ReloadIcon from "./components/reloadIcon";
 
 const WEATHER_API_KEY = 'cd914f43b33183306bca45809ad5439f';
 const BASE_WEATHER_URL = 'https://api.openweathermap.org/data/2.5/weather?';
@@ -21,6 +23,9 @@ export default function App() {
     }, [unitSystem]);
 
     async function load() {
+        setCurrentWeather(null);
+        setErrMsg(null);
+
         try {
             // Require Permissions
             let {status} = await Location.requestPermissionsAsync();
@@ -51,19 +56,27 @@ export default function App() {
         return (
             <View style={styles.container}>
                 <ImageBackground source={bgImage} style={styles.bgImage}>
-                    <StatusBar style="auto"/>
+                    <StatusBar style="auto" backgroundColor="#969696"/>
                     <View style={styles.main}>
                         <UnitsPicker unitSystem={unitSystem} setUnitSystem={setUnitSystem}/>
+                        <ReloadIcon load={load}/>
                         <WeatherInfo currentWeather={currentWeather}/>
                     </View>
                 </ImageBackground>
             </View>
         );
-    } else {
+    } else if (errMsg) {
         return (
             <View style={styles.container}>
                 <Text>{errMsg}</Text>
                 <StatusBar style="auto"/>
+            </View>
+        );
+    } else {
+        return (
+            <View style={styles.container}>
+                <ActivityIndicator size="large" color={colors.SECONDARY_COLOR}/>
+                <StatusBar/>
             </View>
         );
     }

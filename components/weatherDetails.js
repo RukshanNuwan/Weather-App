@@ -6,12 +6,16 @@ import {colors} from "../utils/inedx";
 
 const {PRIMARY_COLOR, SECONDARY_COLOR, BORDER_COLOR} = colors;
 
-export default function WeatherDetails({currentWeather}) {
+export default function WeatherDetails({currentWeather, unitSystem}) {
     const {
         main: {pressure, humidity, temp_min, temp_max},
         wind: {speed},
         clouds: {all}
     } = currentWeather;
+
+    const windSpeed = unitSystem === 'metric' ? `${Math.round(speed)} m/s` : `${Math.round(speed)} miles/h`;
+
+
     return (
         <View style={styles.weatherDetails}>
             <View style={styles.weatherDetailsBox}>
@@ -52,7 +56,7 @@ export default function WeatherDetails({currentWeather}) {
                     <FontAwesome5 name="wind" size={20} color={SECONDARY_COLOR}/>
                     <Text style={styles.info}> Wind Speed</Text>
                 </View>
-                <Text style={styles.speed}>{speed} m/s</Text>
+                <Text style={styles.speed}>{windSpeed}</Text>
             </View>
             <View style={styles.weatherDetailsBox}>
                 {/*Cloudiness*/}

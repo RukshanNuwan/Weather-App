@@ -64,7 +64,7 @@ export default function App() {
                         <WeatherInfo currentWeather={currentWeather}/>
                     </View>
                     <View>
-                        <WeatherDetails currentWeather={currentWeather}/>
+                        <WeatherDetails currentWeather={currentWeather} unitSystem={unitSystem}/>
                     </View>
                 </ImageBackground>
             </View>
@@ -72,7 +72,8 @@ export default function App() {
     } else if (errMsg) {
         return (
             <View style={styles.container}>
-                <Text>{errMsg}</Text>
+                <ReloadIcon load={load}/>
+                <Text style={styles.errMsg}>{errMsg}</Text>
                 <StatusBar style="auto"/>
             </View>
         );
@@ -101,5 +102,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         resizeMode: 'cover'
+    },
+
+    errMsg: {
+        textAlign: 'center',
+        color: 'red'
     }
 });

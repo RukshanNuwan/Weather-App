@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
+import {FontAwesome5} from '@expo/vector-icons';
 
 import {colors} from '../utils/inedx';
 
@@ -8,11 +9,9 @@ const {PRIMARY_COLOR, SECONDARY_COLOR} = colors;
 export default function WeatherInfo({currentWeather}) {
     // Get API information
     const {
-        main: {temp, feels_like, pressure, humidity, temp_min, temp_max},
-        weather: [details],
-        wind: {speed},
-        clouds: {all},
-        name
+        name,
+        main: {temp, feels_like},
+        weather: [details]
     } = currentWeather;
 
     const {icon, description, main} = details;
@@ -20,44 +19,55 @@ export default function WeatherInfo({currentWeather}) {
 
     return (
         <View style={styles.weatherInfo}>
-            <View>
-                {/*City Name*/}
-                <Text style={styles.cityName}>{name}</Text>
+            {/*City Name*/}
+            <View style={styles.detailsTitle}>
+                <FontAwesome5 name="map-marker-alt" size={55} color={SECONDARY_COLOR}/>
+                <Text style={styles.cityName}> {name}</Text>
             </View>
-
-            {/*Icon*/}
-            <Image source={{uri: iconUrl}} style={styles.weatherIcon}/>
-            {/*Temperature*/}
-            <Text style={styles.temp}>{temp}°</Text>
-            {/*Feels Like Temperature*/}
-            <Text style={styles.feelsLike}>{feels_like}°</Text>
-            {/*Pressure*/}
-            <Text style={styles.pressure}>{pressure} hPa</Text>
-            {/*Humidity*/}
-            <Text style={styles.humidity}>{humidity}%</Text>
-            {/*Min Temperature*/}
-            <Text style={styles.tempMin}>{temp_min}°</Text>
-            {/*Max Temperature*/}
-            <Text style={styles.tempMax}>{temp_max}°</Text>
-            {/*Main Weather Status*/}
-            <Text style={styles.main}>{main}</Text>
-            {/*Weather Description*/}
-            <Text style={styles.description}>{description}</Text>
-            {/*Wind Speed*/}
-            <Text style={styles.speed}>{speed} m/s</Text>
-            {/*Cloud Cover*/}
-            <Text style={styles.cloud}>{all}%</Text>
+            <View style={styles.mainRow}>
+                {/*Temperature*/}
+                <Text style={styles.temp}> {temp}°</Text>
+                {/*Icon*/}
+                <Image source={{uri: iconUrl}} style={styles.weatherIcon}/>
+            </View>
+            <View style={styles.otherDetails}>
+                {/*Feels Like Temperature*/}
+                <View>
+                    <Text style={styles.info}>Feels Like</Text>
+                    <Text style={styles.feelsLike}>{feels_like}°</Text>
+                </View>
+                <View>
+                    {/*Main Weather Status*/}
+                    <Text style={styles.main}>{main}</Text>
+                    {/*Weather Description*/}
+                    <Text style={styles.description}>{description}</Text>
+                </View>
+            </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     weatherInfo: {
-        alignItems: 'center'
+        marginLeft: 10
+    },
+
+    mainRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+
+    otherDetails: {
+        marginLeft: 3,
+        marginRight: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
     },
 
     cityName: {
-        fontSize: 40,
+        fontSize: 60,
         color: PRIMARY_COLOR
     },
 
@@ -71,42 +81,31 @@ const styles = StyleSheet.create({
         height: 100
     },
 
-    feelsLike: {
-        color: PRIMARY_COLOR
-    },
-
-    tempMin: {
-        color: PRIMARY_COLOR
-    },
-
-    tempMax: {
-        color: PRIMARY_COLOR
-    },
-
-    pressure: {
-        color: PRIMARY_COLOR
-    },
-
-    humidity: {
-        color: PRIMARY_COLOR
-    },
-
-    speed: {
-        color: PRIMARY_COLOR
-    },
-
     main: {
-        textTransform: 'uppercase',
+        textTransform: 'capitalize',
         color: PRIMARY_COLOR,
+        fontSize: 30,
         fontWeight: 'bold'
     },
 
     description: {
         textTransform: 'capitalize',
+        fontSize: 20,
         color: PRIMARY_COLOR
     },
 
-    cloud: {
+    feelsLike: {
+        fontSize: 30,
         color: PRIMARY_COLOR
+    },
+
+    info: {
+        fontSize: 25,
+        color: SECONDARY_COLOR
+    },
+
+    detailsTitle: {
+        flexDirection: 'row',
+        alignItems: 'center',
     }
 });

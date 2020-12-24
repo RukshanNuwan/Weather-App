@@ -1,8 +1,8 @@
 import {StatusBar} from 'expo-status-bar';
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-
 import * as Location from 'expo-location';
+
 import WeatherInfo from "./components/weatherInfo";
 
 const WEATHER_API_KEY = 'cd914f43b33183306bca45809ad5439f';

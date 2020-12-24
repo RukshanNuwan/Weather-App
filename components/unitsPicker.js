@@ -3,7 +3,7 @@ import {View} from 'react-native'
 
 import {Picker} from '@react-native-community/picker';
 
-export default function UnitsPicker(unitSystem, setUnitSystem) {
+export default function UnitsPicker({unitSystem, setUnitSystem}) {
 
     return (
         <View>

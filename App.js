@@ -32,7 +32,7 @@ export default function App() {
 
             const location = await Location.getCurrentPositionAsync();
             const {latitude, longitude} = location.coords;
-            const weatherUrl = `${BASE_WEATHER_URL}lat=${latitude}&lon=${longitude}&appid=${WEATHER_API_KEY}`;
+            const weatherUrl = `${BASE_WEATHER_URL}lat=${latitude}&lon=${longitude}&units=${unitSystem}&appid=${WEATHER_API_KEY}`;
             const response = await fetch(weatherUrl);
             const result = await response.json();
 

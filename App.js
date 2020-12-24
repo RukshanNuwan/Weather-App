@@ -48,8 +48,10 @@ export default function App() {
     if (currentWeather) {
         return (
             <View style={styles.container}>
-                <StatusBar style="auto"/>
-                <WeatherInfo currntWeather={currentWeather}/>
+                <View style={styles.main}>
+                    <StatusBar style="auto"/>
+                    <WeatherInfo currentWeather={currentWeather}/>
+                </View>
             </View>
         );
     } else {
@@ -65,8 +67,11 @@ export default function App() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
         justifyContent: 'center',
     },
+
+    main: {
+        flex: 1,
+        justifyContent: 'center'
+    }
 });

@@ -1,5 +1,6 @@
 {
   "expo": {
+    "owner": "developers-in",
     "sdkVersion": "40.0.0",
     "name": "weather-app",
     "slug": "weather-app",
